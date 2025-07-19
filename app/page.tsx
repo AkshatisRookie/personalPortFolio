@@ -186,7 +186,7 @@ export default function Portfolio() {
             <Card className="overflow-hidden hover:shadow-lg transition-shadow">
               <div className="aspect-video relative">
                 {/* Project image*/}
-                <Image src="/profile.jpg" alt="" fill className="object-cover" />
+                <Image src="/MarketLOL.png" alt="" fill className="object-cover" />
               </div>
               <CardHeader>
                 <CardTitle className="flex items-center justify-between">
