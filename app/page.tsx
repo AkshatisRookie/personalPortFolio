@@ -170,7 +170,9 @@ export default function Portfolio() {
                   </div>
                 </CardTitle>
                 <CardDescription>
-                • Personal portfolio website to showcase projects, skills, and GitHub contributions. • Visualized GitHub data to highlight projects and repo. • Focused on clean design and fast performance to enhance user experience.
+                • Built and deployed a fully responsive portfolio using Next.js, Tailwind CSS, and Vercel, highlighting skills, resume,
+ and live project showcases. • Integrated GitHub REST API to dynamically fetch and display latest repositories and project details, ensuring
+ always up-to-date project listings. • Optimized for performance and SEO with lazy loading, meta tags, and a Lighthouse performance score above 90.
                 </CardDescription>
               </CardHeader>
               <CardContent>
