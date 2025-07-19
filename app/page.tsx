@@ -270,7 +270,7 @@ export default function Portfolio() {
               </a>
             </Button>
             <Button variant="outline" size="lg">
-              <a href="https://drive.google.com/file/d/1kuldfUw5MT3hC10AP2N0t7twIeO7IaxE/view?usp=drivesdk">
+              <a href="https://drive.google.com/file/d/1su1BkzKePA15YfhTBoB-jdQG6ihjfMNE/view?usp=drivesdk">
                 Download Resume
               </a>
             </Button>
