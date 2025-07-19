@@ -1,37 +1,54 @@
-'use client'
-import React, { useEffect, useState } from "react"
+'use client';
+import React, { useEffect, useState } from 'react';
 
-// This component fetches and displays real-time GitHub stats for AkshatisRookie
-// For interviewers: Demonstrates API integration and dynamic data rendering
+interface Repo {
+  name: string;
+  url: string;
+}
+
 const GithubStats: React.FC = () => {
-  const [repoCount, setRepoCount] = useState<number | null>(null)
-  const [pinnedRepos, setPinnedRepos] = useState<Array<{ name: string; url: string }>>([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState<string | null>(null)
+  const [repoCount, setRepoCount] = useState<number | null>(null);
+  const [pinnedRepos, setPinnedRepos] = useState<Repo[]>([]);
+  const [loading, setLoading] = useState(true);
+  const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    // Fetch public repository count
-    fetch("https://api.github.com/users/AkshatisRookie")
-      .then((res) => res.json())
-      .then((data) => setRepoCount(data.public_repos))
-      .catch(() => setError("Failed to fetch repo count"))
+    const fetchGitHubData = async () => {
+      try {
+        const [userRes, reposRes] = await Promise.all([
+          fetch('https://api.github.com/users/AkshatisRookie'),
+          fetch('https://api.github.com/users/AkshatisRookie/repos?sort=updated&per_page=3'),
+        ]);
 
-    // Fetch 3 most recently updated repos
-    fetch("https://api.github.com/users/AkshatisRookie/repos?sort=updated&per_page=3")
-      .then((res) => res.json())
-      .then((data) => {
-        if (Array.isArray(data)) {
-          setPinnedRepos(
-            data.map((repo: any) => ({ name: repo.name, url: repo.html_url }))
-          )
+        if (!userRes.ok || !reposRes.ok) {
+          throw new Error('GitHub API error');
         }
-      })
-      .catch(() => setError("Failed to fetch repos"))
-      .finally(() => setLoading(false))
-  }, [])
 
-  if (loading) return <div>Loading GitHub stats...</div>
-  if (error) return <div>Error: {error}</div>
+        const userData = await userRes.json();
+        const reposData = await reposRes.json();
+
+        setRepoCount(userData.public_repos);
+        if (Array.isArray(reposData)) {
+          setPinnedRepos(
+            // eslint-disable-next-line @typescript-eslint/no-explicit-any
+            reposData.map((repo: any) => ({
+              name: repo?.name,
+              url: repo?.html_url,
+            }))
+          );
+        }
+      } catch {
+        setError('Failed to fetch GitHub stats');
+      } finally {
+        setLoading(false);
+      }
+    };
+
+    fetchGitHubData();
+  }, []);
+
+  if (loading) return <div>Loading GitHub stats...</div>;
+  if (error) return <div className="text-red-500">Error: {error}</div>;
 
   return (
     <>
@@ -39,11 +56,11 @@ const GithubStats: React.FC = () => {
       <div className="space-y-3">
         <div className="flex justify-between">
           <span>Public Repositories</span>
-          <span className="font-semibold">{repoCount !== null ? repoCount : "-"}</span>
+          <span className="font-semibold">{repoCount ?? '-'}</span>
         </div>
-        <div className="flex justify-between">
+        <div className="flex flex-col sm:flex-row sm:justify-between">
           <span>Recent Repositories</span>
-          <span>
+          <span className="flex flex-wrap gap-x-2 font-medium">
             {pinnedRepos.length > 0 ? (
               pinnedRepos.map((repo, idx) => (
                 <a
@@ -51,10 +68,10 @@ const GithubStats: React.FC = () => {
                   href={repo.url}
                   target="_blank"
                   rel="noopener noreferrer"
-                  className="underline mx-1"
+                  className="underline hover:text-blue-600"
                 >
                   {repo.name}
-                  {idx < pinnedRepos.length - 1 ? "," : ""}
+                  {idx < pinnedRepos.length - 1 ? ',' : ''}
                 </a>
               ))
             ) : (
@@ -64,7 +81,7 @@ const GithubStats: React.FC = () => {
         </div>
       </div>
     </>
-  )
-}
+  );
+};
 
-export default GithubStats 
+export default GithubStats;

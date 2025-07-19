@@ -1,7 +1,7 @@
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
-import { Github, ExternalLink, Mail, Linkedin, Twitter } from "lucide-react"
+import { Github, ExternalLink, Mail, Linkedin } from "lucide-react"
 import Image from "next/image"
 import GithubStats from "@/components/GithubStats"
 
