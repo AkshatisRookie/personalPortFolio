@@ -158,12 +158,12 @@ export default function Portfolio() {
                   Personal Portfolio
                   <div className="flex space-x-2">
                     <Button variant="ghost" size="sm" asChild>
-                      <a href="https://github.com" target="_blank" rel="noopener noreferrer">
+                      <a href="https://github.com/AkshatisRookie/personalPortFolio" target="_blank" rel="noopener noreferrer">
                         <Github className="h-4 w-4" />
                       </a>
                     </Button>
                     <Button variant="ghost" size="sm" asChild>
-                      <a href="https://demo.com" target="_blank" rel="noopener noreferrer">
+                      <a href="" target="_blank" rel="noopener noreferrer">
                         <ExternalLink className="h-4 w-4" />
                       </a>
                     </Button>
